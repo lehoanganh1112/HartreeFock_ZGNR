@@ -56,9 +56,10 @@ def coordinate(j, Lx, Ly):
     Ly: (int) width of ribbon.
     < Output >
     (x, y) : (tuples) coordinates of site j
+    < Notice >
+    With this notation the most upper-left site is labeled 0
     '''
     x = j % Lx + 1
-    ## With this notation the top left site is 0
     y = Ly - (j // Lx + 1) + 1
     if y % 2 == 1 and ((y + 1)/2) % 2 == 1:
         return (x, ((y + 1)/2) * cp.sqrt(3)/2)
