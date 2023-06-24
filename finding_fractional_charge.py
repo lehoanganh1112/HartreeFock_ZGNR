@@ -1,13 +1,13 @@
-import cupy as np
-# import numpy as np
+# import cupy as np
+import numpy as np
 from time import time
 import random
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-pool = np.cuda.MemoryPool(np.cuda.malloc_managed)
-np.cuda.set_allocator(pool.malloc)
+# pool = np.cuda.MemoryPool(np.cuda.malloc_managed)
+# np.cuda.set_allocator(pool.malloc)
 
 
 def DivisibleQ(x, b):
@@ -153,10 +153,10 @@ t = 1
 imp = 0.1
 dope = 0
 
-# (L, W) = (170, 144)
-Lx = 170
-Ly = 144
-nf = 1 + dope/(Lx * Ly)
+# # (L, W) = (170, 144)
+# Lx = 170
+# Ly = 144
+# nf = 1 + dope/(Lx * Ly)
 
 
 
@@ -176,23 +176,23 @@ nf = 1 + dope/(Lx * Ly)
 # l_zig = 161
 # l_arm = 28
 
-# # #### Test parameters
-# Lx = 20
-# Ly = 8
-# nf = 1 + dope/(Lx * Ly)
+# #### Test parameters
+Lx = 120
+Ly = 8
+nf = 1 + dope/(Lx * Ly)
 
 ####### Solve eigensystem #########
 
 # Set up parameters
-gamma = 0.7
+gamma = 15
 dope = 0
-U = 3
+U = 1
 nf = 1 + dope/(Lx * Ly)
 
 val_up, vec_up, val_dn, vec_dn = HF_solution(Lx, Ly)
 
 # Truncate eigensystem to reduce files' sizes
-cut_off = 100
+cut_off = 50
 val_up = val_up[int(Lx*Ly//2-cut_off):int(Lx*Ly//2+cut_off+1)]
 val_dn = val_dn[int(Lx*Ly//2-cut_off):int(Lx*Ly//2+cut_off+1)]
 vec_up = vec_up[:, int(Lx*Ly//2-cut_off):int(Lx*Ly//2+cut_off+1)]
@@ -204,4 +204,10 @@ np.savetxt('eig_vec_up_clean_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gam
 
 np.savetxt('eig_val_dn_clean_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', val_dn)
 np.savetxt('eig_vec_dn_clean_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', vec_dn)
+
+# np.savetxt('eig_val_up_clean_dope30_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', val_up)
+# np.savetxt('eig_vec_up_clean_dope30_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', vec_up)
+
+# np.savetxt('eig_val_dn_clean_dope30_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', val_dn)
+# np.savetxt('eig_vec_dn_clean_dope30_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', vec_dn)
 

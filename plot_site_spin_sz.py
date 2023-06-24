@@ -1,11 +1,12 @@
-import cupy as np
+# import cupy as np
+import numpy as np
 from time import time
 import random
 from tqdm import tqdm
 
 
-pool = np.cuda.MemoryPool(np.cuda.malloc_managed)
-np.cuda.set_allocator(pool.malloc)
+# pool = np.cuda.MemoryPool(np.cuda.malloc_managed)
+# np.cuda.set_allocator(pool.malloc)
 
 def DivisibleQ(x, b):
     if np.remainder(x, b) == 0:
@@ -152,10 +153,10 @@ def occupation_spin(vector_solution, Lx, Ly):
 
 t = 1
 #############
-U = 2
+U = 1
 #############
 imp = 0.1
-dope = 0
+dope = 30
 
 
 # #### Large parameters
@@ -186,10 +187,10 @@ dope = 0
 
 
 #### Large parameters
-Lx = 100
-Ly = 24
+Lx = 120
+Ly = 8
 nf = 1 + dope/(Lx * Ly)
-gamma = 0.7
+gamma = 0
 
 
 # #### Large parameters
@@ -224,6 +225,6 @@ sz = np.ndarray.flatten(sz).tolist()
 
 
 
-np.savetxt('sz_clean_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', sz)
-# np.savetxt('n_clean_up_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', n_up)
-# np.savetxt('n_clean_dn_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', n_dn)
+# np.savetxt('sz_clean_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', sz)
+np.savetxt('n_clean_up_dope'+str(dope)+'_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', n_up)
+np.savetxt('n_clean_dn_dope'+str(dope)+'_L'+str(Lx)+'W'+str(Ly)+'_U'+str(U)+'_gamma'+str(gamma)+'.txt', n_dn)
