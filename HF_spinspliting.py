@@ -22,7 +22,7 @@ def hopping_list(Lx, Ly):
     Lx: (int) length of ribbon.
     Ly: (int) width of ribbon.
     < Output >
-    the_hopping_list: (list) list of n.n. hopping.
+    the_hopping_list: (list) list of n.n. hoppings on ZGNR.
     '''
     the_hopping_list = []        
     for i in range(Lx*Ly):
@@ -50,7 +50,7 @@ def hopping_list(Lx, Ly):
 
 def coordinate(j, Lx, Ly):
     '''
-    Give Cartesian coordinates of site j in an (Lx, Ly) ribbon. This function
+    Return Cartesian coordinates of site j in an (Lx, Ly) ribbon. This function
     helps to check whether hopping terms are correctly generated.
     < Input > 
     j: (int) (0 <= j < Lx*Ly) Order of site j
@@ -72,7 +72,7 @@ def coordinate(j, Lx, Ly):
     if y % 2 == 0 and (y/2) % 2 == 1:
         return (x + 1/2, (y/2) * cp.sqrt(3)/2 + 1/(2*cp.sqrt(3)))
     
-def hopping_matrix(Lx, Ly):
+def hopping_matrix(t, Lx, Ly):
     '''
     Return hopping matrix for mean-field Hamiltonian of ZGNR.
     < Input >
@@ -86,7 +86,7 @@ def hopping_matrix(Lx, Ly):
         draft_hopping[element] = -t
     return draft_hopping + cp.transpose(draft_hopping)
 
-def initial_condition(Lx, Ly, ferro = False):
+def initial_condition(gamma, U, dope, Lx, Ly, ferro = False):
     '''
     Return initial condition for occupation number. There are 3 types of 
     initial conditions considered here: ferromagnetic, anti-ferromagnetic 
@@ -103,9 +103,9 @@ def initial_condition(Lx, Ly, ferro = False):
     < Output >
     (ndarrays) (Lx*Ly) by (Lx*Ly) initial condition matrix.
     '''
+    nf = 1 + dope/(Lx * Ly)
     if ferro == True:
         print("Using F initial condition")
-        nf = 1 + dope/(Lx * Ly)
         lst = []
         for i in range(Lx * Ly):
             lst.append(U * (nf/2))
@@ -126,15 +126,16 @@ def initial_condition(Lx, Ly, ferro = False):
             pm_matrix = cp.random.choice((U * 0.001, -U * 0.001), Lx * Ly)
             return cp.diag(pm_matrix)
         
-def impurity_matrix(Lx, Ly):
+def impurity_matrix(gamma, Lx, Ly):
     '''
-    Return impurity matrix.
+    Return impurity matrix. The percentage of sites with impurity is 10%.
     < Input >
     Lx: (int) length of ribbon.
     Ly: (int) width of ribbon.
     < Output >
     (ndarrays) (Lx*Ly) by (Lx*Ly) impurity matrix.
     '''
+    imp = 0.1
     num_imp = Lx*Ly*imp
     if num_imp - int(num_imp) >= 0.5:
         num_imp_site = int(cp.ceil(num_imp))
@@ -146,7 +147,8 @@ def impurity_matrix(Lx, Ly):
         draft_impurity[impurity_site] = cp.random.uniform(-gamma, gamma)
     return cp.diag(draft_impurity)
         
-def self_consistent_solution(Lx, Ly, t, U, gamma, number_iteration=14):
+def self_consistent_solution(t, U, gamma, dope, Lx, Ly, number_iteration=14):
+    nf = 1 + dope/(Lx * Ly)
     ini_hamil = hopping_matrix(Lx, Ly, t) + impurity_matrix(Lx, Ly, gamma)
     ini_cond = initial_condition(Lx, Ly, U, gamma)
     val_up, vec_up = cp.linalg.eigh(ini_hamil + ini_cond)
@@ -170,7 +172,7 @@ def self_consistent_solution(Lx, Ly, t, U, gamma, number_iteration=14):
         hamil_dn = ini_hamil + average_n_matrix(vec_up)
     return hamil_up, hamil_dn
 
-def HF_vec(Lx, Ly):
+def HF_vec(t, U, gamma, dope, Lx, Ly):
     '''
     Return Hartree-Fock eigensystem.
     < Input >
@@ -181,7 +183,7 @@ def HF_vec(Lx, Ly):
     val: (2*Lx*Ly) column vector of eigenvalues.
     vec[:, i]: (2*Lx*Ly) column-eigenvector corresponding to val[i].
     '''
-    the_system = self_consistent_solution(Lx, Ly)
+    the_system = self_consistent_solution(t, U, gamma, dope, Lx, Ly)
     val_up, vec_up = cp.linalg.eigh(the_system[0])
     val_dn, vec_dn = cp.linalg.eigh(the_system[1])
     return val_up, vec_up, val_dn, vec_dn
