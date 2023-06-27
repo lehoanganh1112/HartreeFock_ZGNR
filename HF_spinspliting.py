@@ -1,15 +1,17 @@
 # <---------- Import necessary library ---------->
-# import cupy as cp
-import numpy as cp
-import numpy as np
+try:
+    import cupy as cp
+    # These code lines prevent error of Allocated Memory of Cuda/11.3
+    pool = cp.cuda.MemoryPool(cp.cuda.malloc_managed)
+    cp.cuda.set_allocator(pool.malloc)
+except ImportError:
+    import numpy as cp
 from time import time
 import random
 from tqdm import tqdm
 
 
-# These code lines prevent error of Allocated Memory of Cuda/11.3
-pool = cp.cuda.MemoryPool(cp.cuda.malloc_managed)
-cp.cuda.set_allocator(pool.malloc)
+
 
 
 

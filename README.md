@@ -60,7 +60,10 @@ def HF_vec(Lx, Ly):
 ```
 
 **Things to do** 
-1. Include variables (t, gamma, U, dope) to the corresponding function.
+
+~~1. Include variables (t, gamma, U, dope) to the corresponding function.~~
+
+2. Doing: the geometry folder....
 
 
 
