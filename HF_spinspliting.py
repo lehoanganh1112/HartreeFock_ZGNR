@@ -1,6 +1,7 @@
 # <---------- Import necessary library ---------->
 try:
     import cupy as cp
+    print('Using CUDA')
     # These code lines prevent error of Allocated Memory of Cuda/11.3
     pool = cp.cuda.MemoryPool(cp.cuda.malloc_managed)
     cp.cuda.set_allocator(pool.malloc)
@@ -151,8 +152,8 @@ def impurity_matrix(gamma, Lx, Ly):
         
 def self_consistent_solution(t, U, gamma, dope, Lx, Ly, number_iteration=14):
     nf = 1 + dope/(Lx * Ly)
-    ini_hamil = hopping_matrix(Lx, Ly, t) + impurity_matrix(Lx, Ly, gamma)
-    ini_cond = initial_condition(Lx, Ly, U, gamma)
+    ini_hamil = hopping_matrix(t, Lx, Ly) + impurity_matrix(gamma, Lx, Ly)
+    ini_cond = initial_condition(gamma, U, dope, Lx, Ly,)
     val_up, vec_up = cp.linalg.eigh(ini_hamil + ini_cond)
     val_dn, vec_dn = cp.linalg.eigh(ini_hamil - ini_cond)    
     
@@ -178,6 +179,9 @@ def HF_vec(t, U, gamma, dope, Lx, Ly):
     '''
     Return Hartree-Fock eigensystem.
     < Input >
+    t: hopping term
+    U: on-site repulsion
+    gamma: disorder strength
     Lx: (int) length of ribbon.
     Ly: (int) width of ribbon.
     < Output >
