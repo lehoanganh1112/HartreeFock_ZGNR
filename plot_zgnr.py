@@ -46,7 +46,11 @@ def rectangle_in(w, l_zig, l_arm, Lx, Ly, region = 'A'):
     elif region == 'D':
         return ((xmin1, ymin), xmax1 - xmin1, ymax - ymin)
 
-def plot_partition(w, l_zig, l_arm, Lx, Ly, region = 'A', plot_sites = False, plot_text = False, save=False):
+def plot_partition(w, l_zig, l_arm, Lx, Ly, region = 'A', plot_sites = False, 
+                   plot_text = False, save=False):
+    '''
+    Function to plot the Wilson loop.
+    '''
     fig = plt.figure(dpi = 300)
     ax = fig.add_subplot()
     ax.set_xlabel(r'$L_x$')

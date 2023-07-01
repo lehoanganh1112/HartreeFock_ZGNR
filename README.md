@@ -64,9 +64,11 @@ def HF_vec(Lx, Ly):
 
 ~~1. Include variables (t, gamma, U, dope) to the corresponding function.~~
 
-2. Doing: the geometry folder....
+~~2. Doing: the geometry folder....~~
 
-3. Notice user of using CUDA and not using CUDA.
+~~3. Notice user of using CUDA and not using CUDA.~~
+
+4. Viewing fractional charge.
 
 
 
