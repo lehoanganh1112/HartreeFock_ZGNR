@@ -1,5 +1,6 @@
 # HartreeFock-ZGNR
- Hartree-Fock (HF) calculations for zigzag graphene nanoribbons (ZGNR). This is the Hartree-Fock approximation treatment for the Mott-Anderson Hamiltonian 
+Hartree-Fock (HF) calculations for zigzag graphene nanoribbons (ZGNR). This is the Hartree-Fock approximation treatment for the Mott-Anderson Hamiltonian 
+
 $$
 H = -t \sum_{\left< ij \right>, \sigma} 
 \left( c^\dagger_{i, \sigma} c_{j, \sigma} + c^\dagger_{j, \sigma} c_{i, \sigma}   \right) +
@@ -64,6 +65,8 @@ def HF_vec(Lx, Ly):
 ~~1. Include variables (t, gamma, U, dope) to the corresponding function.~~
 
 2. Doing: the geometry folder....
+
+3. Notice user of using CUDA and not using CUDA.
 
 
 

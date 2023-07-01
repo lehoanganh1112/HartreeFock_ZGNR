@@ -6,6 +6,7 @@ try:
     pool = cp.cuda.MemoryPool(cp.cuda.malloc_managed)
     cp.cuda.set_allocator(pool.malloc)
 except ImportError:
+    print('NOT using CUDA')
     import numpy as cp
 from time import time
 import random
