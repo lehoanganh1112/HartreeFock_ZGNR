@@ -76,6 +76,26 @@ def coordinate(j, Lx, Ly):
     if y % 2 == 0 and (y/2) % 2 == 1:
         return (x + 1/2, (y/2) * cp.sqrt(3)/2 + 1/(2*cp.sqrt(3)))
     
+def list_Asite(Lx, Ly):
+    '''
+    Returns a list of A-carbon sites.
+    '''
+    listA = []
+    for i in range(Lx*Ly):
+        if (i // Lx) % 2 == 0:
+            listA.append(i)
+    return listA
+
+def list_Bsite(Lx, Ly):
+    '''
+    Returns a list of B-carbon sites.
+    '''
+    listB = []
+    for i in range(Lx*Ly):
+        if (i // Lx) % 2 == 1:
+            listB.append(i)
+    return listB
+    
 def hopping_matrix(t, Lx, Ly):
     '''
     Return hopping matrix for mean-field Hamiltonian of ZGNR.

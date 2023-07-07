@@ -28,11 +28,13 @@ For each calculation type, make it in an example folder.
 `HF_spinspliting.py` returns the eigensystems only
 
 Folders:
-1. Geometric of the zigzag ribbon: plot the ribbon, ribbon with partitioned region
+1. Geometric of the zigzag ribbon: plot the ribbon, ribbon with partitioned region (`geometry` folder: Done)
 
-2. qA - energy plot
+2. **qA - energy plot** (currently building)
 
-3. Site spins
+Better save in csv file for easy saving and viewing.
+
+3. Site spins (remember to include the edge-charge correlation analysis)
 
 4. TEE 
 

@@ -1,4 +1,4 @@
-Run `plt_zgnr.py` for results in this folder. Verify whether the hopping list and coordinate function were correctly generated.
+Run `plot_zgnr.py` for results in this folder. Verify whether the hopping list and coordinate function were correctly generated.
 
 
 # 1. A small ZGNR
