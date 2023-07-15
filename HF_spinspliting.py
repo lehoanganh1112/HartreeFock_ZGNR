@@ -13,10 +13,6 @@ import random
 from tqdm import tqdm
 
 
-
-
-
-
 # <---------- 1. Module to solve Hartree-Fock eigensystem ---------->
 def hopping_list(Lx, Ly):
     '''
@@ -321,3 +317,32 @@ def test_difference(w, l_zig, l_arm, Lx, Ly):
         print("Levin-Wen test: PASS")
     else:
         print("Levin-Wen test: FAIL")
+
+def matrixC(eigen_vec, dope, Lx, Ly):
+    thevec = cp.linalg.inv(cp.transpose(eigen_vec))
+    Bjk = thevec[:, 0: int((Lx*Ly+dope)/2)]
+    Bki_star = cp.conjugate(cp.transpose(thevec))[0: int((Lx*Ly + dope)/2), :]
+    return cp.einsum('ki, jk -> ij', Bki_star, Bjk)
+
+
+def entropy(C, partition_list):
+    C = cp.take(C, partition_list, axis = 1)
+    C = cp.take(C, partition_list, axis = 0)
+    lamda = cp.linalg.eigvalsh(C)
+    tol = 1e-100
+    lamda.real[abs(lamda.real) < tol] = 0.0
+    entropy = 0
+    for i in lamda.real:
+        if i>=1 or i<=0:
+            entropy = entropy
+        else:
+            entropy = entropy - (i * cp.log(i) + (1-i) * cp.log(1-i))
+    return entropy
+
+def entropy_TEE(eigen_vec, dope, w, l_zig, l_arm, Lx, Ly):
+    matC = matrixC(eigen_vec, dope,Lx, Ly)
+    sa = entropy(matC, listA(w, l_zig, l_arm, Lx, Ly))
+    sb = entropy(matC, listB(w, l_zig, l_arm, Lx, Ly))
+    sc = entropy(matC, listC(w, l_zig, l_arm, Lx, Ly))
+    sd = entropy(matC, listD(w, l_zig, l_arm, Lx, Ly))  
+    return 0.5 * ((sc - sd) - (sa - sb))
