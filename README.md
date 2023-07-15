@@ -38,7 +38,7 @@ Better save in csv file for easy saving and viewing.
 
 4. TEE 
 
-5. Fractional charge
+5. ~~Fractional charge~~
 
 # HF_spinsplitting.py
 
@@ -70,7 +70,7 @@ def HF_vec(Lx, Ly):
 
 ~~3. Notice user of using CUDA and not using CUDA.~~
 
-4. Viewing fractional charge.
+~~4. Viewing fractional charge.~~
 
 
 
