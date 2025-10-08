@@ -8,7 +8,11 @@ U \sum_{i} n_{i, \uparrow} n_{i, \downarrow} +
 \sum_{i} V_i n_{i, \sigma}.
 $$
 
-
+If you use this code, please cite the following work:
+1) Phase diagram and crossover phases of topologically ordered graphene zigzag nanoribbons: role of localization effects
+Hoang-Anh Le, In-Hwan Lee, Young-Heon Kim and S.-R. Eric Yang, J. Phys.: Condens. Matter 36 265604 (2024)
+2) Exploring Topological Order of Zigzag Graphene Nanoribbons: Phase Diagram and Crossover Phases, Hoang Anh Le, PhD Thesis, Korea University (2024)
+http://dcollection.korea.ac.kr/srch/srchDetail/000000278801
 
 # Plan 
 
